@@ -3,8 +3,9 @@ import Carousel from './Carousel.vue';
 import { ref } from 'vue';
 import appSettings from './config/appSettings.dev.json';
 
-const carousel_images_1: string[] = appSettings.carouselImages[0];
-const carousel_images_2: string[] = appSettings.carouselImages[1];
+const carousel_images_1: string[] = appSettings.carouselImages[0] ?? [];
+const carousel_images_2: string[] = appSettings.carouselImages[1] ?? [];
+const carousel_images_3: string[] = appSettings.carouselImages[2] ?? [];
 
 const artistName = ref(appSettings.artistName);
 const artistImage = appSettings.artistImage;
@@ -25,6 +26,8 @@ const subtitle = ref(appSettings.subtitle);
     <Carousel :images="carousel_images_1"></Carousel>
     <h2>"Quote from a customer that is very positive" - Customer Name</h2>
     <Carousel :images="carousel_images_2" :negativeTransition="false"></Carousel>
+    <h2>"Lovely art" - Another Customer</h2>
+    <Carousel :images="carousel_images_3"></Carousel>
   </main>
 </template>
 
