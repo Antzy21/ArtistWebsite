@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, defineProps, onMounted, onUnmounted, computed } from "vue";
 
-const { images, negativeTransition = false } = defineProps<{
+const { images, negativeTransition = false, transitionStyle = "linear" } = defineProps<{
     images: string[],
     negativeTransition?: boolean;
+    transitionStyle?: string;
 }>();
 
 const isMobileView = ref(window.innerWidth < 768);
@@ -35,7 +36,7 @@ const nextSlide = () => {
         setTimeout(() => {
             isTransitioning.value = true;
             indexShift.value ++;
-        }, 50); // Allow DOM to update before transitioning
+        }, 20); // Allow DOM to update before transitioning
     } else {
         indexShift.value ++;
     }
@@ -59,7 +60,7 @@ onUnmounted(() => {
 
 <template>
     <div class="carousel-images"
-        :style="{ transform: `translateX(${transitionValue}%)`, transition: isTransitioning ? 'transform 3s ease-in-out' : 'none' }">
+        :style="{ transform: `translateX(${transitionValue}%)`, transition: isTransitioning ? `transform 3s ${transitionStyle}` : 'none' }">
         <img v-for="(image, index) in repeatedImages" :key="index" :src="image" :alt="'Image ' + (index + 1)"
             class="carousel-image" />
     </div>

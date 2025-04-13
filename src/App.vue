@@ -27,6 +27,8 @@ const subtitle = ref(appSettings.subtitle);
     <Carousel :images="carousel_images_1"></Carousel>
     <h2>Reverse Carousel with 2 images</h2>
     <Carousel :images="carousel_images_1" negativeTransition></Carousel>
+    <h2>Carousel with transition: "ease-in-out"</h2>
+    <Carousel :images="carousel_images_1" transitionStyle="ease-in-out"></Carousel>
     <h2>Carousel with 3 images</h2>
     <Carousel :images="carousel_images_2"></Carousel>
     <h2>Reverse Carousel with 3 images</h2>
