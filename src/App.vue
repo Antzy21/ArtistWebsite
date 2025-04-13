@@ -19,7 +19,7 @@ const subtitle = ref(appSettings.subtitle);
       <h1>{{ artistName }}</h1>
       <h2>{{ subtitle }}</h2>
     </div>
-    <img alt="Artist image" class="logo" :src="artistImage" width="20%" />
+    <img alt="Artist image" class="artistImage" :src="artistImage" width="20%" />
   </header>
 
   <main>
@@ -48,9 +48,8 @@ header {
   justify-content: center;
 }
 
-.logo {
+.artistImage {
   display: block;
-  border: 5px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
 }
 
