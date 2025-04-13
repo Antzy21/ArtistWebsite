@@ -6,6 +6,12 @@ const { images, negativeTransition = false } = defineProps<{
     negativeTransition?: boolean;
 }>();
 
+const isMobileView = ref(window.innerWidth < 768);
+
+const shiftWidth = computed(() => {
+    return isMobileView.value ? 50 : 25;
+});
+
 const transitionDirection = computed(() => negativeTransition ? -1 : 1);
 
 const startingIndex = ref(10 + 2 * -transitionDirection.value);
@@ -19,7 +25,7 @@ const indexShift = ref(0);
 const isTransitioning = ref(true);
 
 const transitionValue = computed(() => {
-    return (-50 + (indexShift.value * 25)) * transitionDirection.value - 150;
+    return (-2*shiftWidth.value + (indexShift.value * shiftWidth.value)) * transitionDirection.value - shiftWidth.value * 6.5;
 });
 
 const nextSlide = () => {
@@ -38,10 +44,15 @@ const nextSlide = () => {
 let slideInterval: number;
 
 onMounted(() => {
+    const handleResize = () => {
+        isMobileView.value = window.innerWidth < 768;
+    };
+    window.addEventListener("resize", handleResize);
     slideInterval = setInterval(nextSlide, 3000);
 });
 
 onUnmounted(() => {
+    window.removeEventListener("resize", () => {});
     clearInterval(slideInterval);
 });
 </script>
@@ -60,10 +71,17 @@ onUnmounted(() => {
 }
 
 .carousel-image {
-    padding: 4rem 1rem;
-    width: 25%;
+    padding: 1rem 0.25rem;
+    width: 50%;
     /* Ensure 4 images fit the width of the carousel */
     object-fit: cover;
     /* Maintain aspect ratio */
+}
+
+@media (min-width: 1024px) {
+    .carousel-image {
+        width: 25%;
+        padding: 2rem 1rem;
+    }
 }
 </style>

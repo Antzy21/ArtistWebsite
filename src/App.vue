@@ -19,20 +19,20 @@ const subtitle = ref(appSettings.subtitle);
       <h1>{{ artistName }}</h1>
       <h2>{{ subtitle }}</h2>
     </div>
-    <img alt="Artist image" class="logo" :src="artistImage" width="250" height="250" />
+    <img alt="Artist image" class="logo" :src="artistImage" width="20%" />
   </header>
 
   <main>
     <h2>Carousel with 2 images</h2>
     <Carousel :images="carousel_images_1"></Carousel>
-    <h2>Carousel with 3 images</h2>
-    <Carousel :images="carousel_images_2"></Carousel>
-    <h2>Carousel with 4 images</h2>
-    <Carousel :images="carousel_images_3"></Carousel>
     <h2>Reverse Carousel with 2 images</h2>
     <Carousel :images="carousel_images_1" negativeTransition></Carousel>
+    <h2>Carousel with 3 images</h2>
+    <Carousel :images="carousel_images_2"></Carousel>
     <h2>Reverse Carousel with 3 images</h2>
     <Carousel :images="carousel_images_2" negativeTransition></Carousel>
+    <h2>Carousel with 4 images</h2>
+    <Carousel :images="carousel_images_3"></Carousel>
     <h2>Reverse Carousel with 4 images</h2>
     <Carousel :images="carousel_images_3" negativeTransition></Carousel>
   </main>
@@ -44,28 +44,28 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
 }
 
 .logo {
   display: block;
-  border: 5px solid rgba(0, 0, 0, 0.1); /* Faded border */
-  border-radius: 10px; /* Optional: Add rounded corners */
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
 }
 
 .header-text {
   line-height: 2;
+  padding: 0 2rem;
   white-space: normal;
-  padding: 0 3rem;
 }
 
 @media (min-width: 1024px) {
-  header {
-    padding-right: calc(var(--section-gap) / 2);
+  h2 {
+    margin: 1rem 0;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  header {
+    padding: 0 3rem;
+    padding-right: calc(var(--section-gap) / 2);
   }
 }
 </style>
