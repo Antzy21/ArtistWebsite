@@ -1,41 +1,39 @@
 <script setup lang="ts">
 import { ref, defineProps, onMounted, onUnmounted, computed } from "vue";
 
-const { images, negativeTransition = true } = defineProps<{
+const { images, negativeTransition = false } = defineProps<{
     images: string[],
     negativeTransition?: boolean;
 }>();
 
-const transitionDirection = computed(() => {
-    return negativeTransition ? -1 : 1;
-});
+const transitionDirection = computed(() => negativeTransition ? -1 : 1);
 
-const startingIndex = computed(() => images.length * (transitionDirection.value));
-
-const currentIndex = ref(startingIndex.value);
-const isTransitioning = ref(true);
-
-const transitionValue = computed(() => {
-    return -250 + ((currentIndex.value / 4) * 100) * transitionDirection.value;
-});
-
-const nextSlide = () => {
-    if (currentIndex.value % images.length == 0) {
-        isTransitioning.value = false;
-        currentIndex.value = startingIndex.value
-        setTimeout(() => {
-            isTransitioning.value = true; // Re-enable transition
-            currentIndex.value++;
-        }, 10); // Allow DOM to update before transitioning
-    } else {
-        currentIndex.value++;
-    }
-};
+const startingIndex = ref(10 + 2 * -transitionDirection.value);
 
 const repeatedImages = computed(() => {
     const repetitions = Math.ceil(16 / images.length); // Calculate minimum repetitions to reach 16
-    return Array(repetitions).fill(images).flat(); // Repeat and flatten the array
+    return Array(repetitions).fill(images).flat().slice(0, 16); // Repeat and flatten the array
 });
+
+const indexShift = ref(0);
+const isTransitioning = ref(true);
+
+const transitionValue = computed(() => {
+    return (-50 + (indexShift.value * 25)) * transitionDirection.value - 150;
+});
+
+const nextSlide = () => {
+    if (indexShift.value === images.length) {
+        isTransitioning.value = false;
+        indexShift.value = 0;
+        setTimeout(() => {
+            isTransitioning.value = true;
+            indexShift.value ++;
+        }, 50); // Allow DOM to update before transitioning
+    } else {
+        indexShift.value ++;
+    }
+};
 
 let slideInterval: number;
 
@@ -57,14 +55,15 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-
 .carousel-images {
     display: flex;
 }
 
 .carousel-image {
     padding: 4rem 1rem;
-    width: 25%; /* Ensure 4 images fit the width of the carousel */
-    object-fit: cover; /* Maintain aspect ratio */
+    width: 25%;
+    /* Ensure 4 images fit the width of the carousel */
+    object-fit: cover;
+    /* Maintain aspect ratio */
 }
 </style>

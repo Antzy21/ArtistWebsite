@@ -23,11 +23,18 @@ const subtitle = ref(appSettings.subtitle);
   </header>
 
   <main>
+    <h2>Carousel with 2 images</h2>
     <Carousel :images="carousel_images_1"></Carousel>
-    <h2>"Quote from a customer that is very positive" - Customer Name</h2>
-    <Carousel :images="carousel_images_2" :negativeTransition="false"></Carousel>
-    <h2>"Lovely art" - Another Customer</h2>
+    <h2>Carousel with 3 images</h2>
+    <Carousel :images="carousel_images_2"></Carousel>
+    <h2>Carousel with 4 images</h2>
     <Carousel :images="carousel_images_3"></Carousel>
+    <h2>Reverse Carousel with 2 images</h2>
+    <Carousel :images="carousel_images_1" negativeTransition></Carousel>
+    <h2>Reverse Carousel with 3 images</h2>
+    <Carousel :images="carousel_images_2" negativeTransition></Carousel>
+    <h2>Reverse Carousel with 4 images</h2>
+    <Carousel :images="carousel_images_3" negativeTransition></Carousel>
   </main>
 </template>
 
